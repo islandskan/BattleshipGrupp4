@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Board.h"
+#include <utility>
 #include "Ship.h"
 #include "GameObject.h"
 
@@ -13,7 +14,7 @@ private:
     int points = 0;
     std::string name = "";
     Board board;
-    std::vector<Ship> ships;
+    std::vector<Ship*> ships;
     GameObject* Game;
 
 public:
@@ -23,10 +24,10 @@ public:
 
     void print();
     void mark_attack(std::pair<int, int>, bool);
-    int update_points(int);
+    int update_points(int new_points);
     std::pair<int, int> attack(/*coordinates*/);
-    void take_turn(Player*);
-    int get_attacked(std::pair<int, int>);
+    void take_turn(Player* opponent);
+    int get_attacked(std::pair<int, int> coord);
 
 
     // getters

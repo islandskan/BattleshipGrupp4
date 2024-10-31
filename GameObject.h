@@ -11,7 +11,7 @@ private:
 public:
     GameObject();
     ~GameObject();
-    void take_turn(Player);
+    void take_turn(Player& player);
     void start_game();
 
 };

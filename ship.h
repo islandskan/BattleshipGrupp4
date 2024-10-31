@@ -10,24 +10,43 @@ private:
     int pointValue;        // Poängvärde för skeppet
     int size;              // Skeppets storlek (antal rutor)
     int hitCount;          // Antal gånger skeppet har blivit träffat
-    bool isSunk;           // Om skeppet har blivit sänkt
+    bool isSunk = false;           // Om skeppet har blivit sänkt
     bool isCaptain;        // Om detta skepp är en kapten
 
 public:
     // Konstruktor, anropas automatiskt när ett nytt objekt av klassen skapas
-    Ship(std::string name, int pointValue, int size, bool isCaptain = false);
+    Ship(std::string name, int pointValue, int size, bool isCaptain = false)
+    : name(name), pointValue(pointValue), size(size), isCaptain(isCaptain), hitCount(0) {}
+
 
     // Getter-funktioner som returnerar skeppets egenskaper
-    std::string getName() const;       // Returnerar skeppets namn
-    int getPointValue() const;         // Returnerar poängvärdet
-    int getSize() const;               // Returnerar storleken
-    int getHitCount() const;           // Returnerar antalet träffar
-    bool getIsSunk() const;            // Returnerar om skeppet är sänkt
-    bool getIsCaptain() const;         // Returnerar om skeppet är kapten
+    std::string getName() const { return name; }       // Returnerar skeppets namn
+    int getPointValue() const { return pointValue; }         // Returnerar poängvärdet
+    int getSize() const { return size; }               // Returnerar storleken
+    int getHitCount() const { return hitCount; }           // Returnerar antalet träffar
+    bool getIsSunk() const { return isSunk; }            // Returnerar om skeppet är sänkt
+    bool getIsCaptain() const { return isCaptain; }         // Returnerar om skeppet är kapten
 
     // Metoder
-    void hit();                        // Markerar en träff på skeppet
-    bool checkIfSunk() const;          // Kontrollera om skeppet är sänkt
+    void hit() {
+    hitCount++;
+    if (hitCount >= size) {
+        isSunk = true;
+     }                 
+    
+    }      // Markerar en träff på skeppet
+
+    bool is_already_hit() const {
+        return hitCount > 0;
+    }
+
+    bool is_Captain() const {
+        return isCaptain;
+    }
+
+    bool checkIfSunk() const {
+        return isSunk;
+    }       // Kontrollera om skeppet är sänkt
 };
 
 // Subklass för Kapten (1x1) skepp

@@ -19,8 +19,8 @@ Player::Player(std::string name/*board, ships, points, GameObject&*/){
 
 Player::~Player()
 {
-    for(Ship ship : ships){
-        delete &ship;
+    for (Ship* ship : ships) {
+        delete ship;
     }
 }
 
@@ -29,22 +29,29 @@ int Player::update_points(int new_point)
 {
     points += new_point;
 }
-
+//Hanterar en attack mot spelaren:
 int Player::get_attacked(std::pair<int, int> coordinate){
-    bool hit = board.is_occupied(coordinate);
-    int r = -1 + hit;
-    //kolla om motståndaren redan skjutit där och det inte är en kapten, i så fall, returnera false
-    //annars om det är en kapten och det är andra skottet då är kaptenen sänkt
 
-    if ( hit == true ) {
-        board.at_location(coordinate)->hit();
+    if (!board.is_occupied(coordinate)) {
+        return -1; //Returna false om det redan har skjutits där
+    }
+    //Markera träff om det finns ett skepp där.
+    if (board.at_location(coordinate)->is_already_hit()) {
+        return false;
     }
 
-    r += board.at_location(coordinate)->checkIfSunk() * board.at_location(coordinate)->getPointValue();
+    board.at_location(coordinate)->hit();
 
+    //Kolla om det är en kapten
+    if (board.at_location(coordinate)->is_Captain()) {
+        if (board.at_location(coordinate)->getHitCount() == 2) {
+            return board.at_location(coordinate)->getPointValue();
+        }
+    }
+        //Beräkna poäng om skettet sänks
+    int r = board.at_location(coordinate)->checkIfSunk() * board.at_location(coordinate)->getPointValue();
     return r;
-}
-
+    }
 
 void Player::mark_attack(std::pair<int, int> coordinate, bool success)
 {
@@ -63,9 +70,9 @@ return this->points;
 
 void Player::print()
 {
-    std::cout<<get_name();
-    std::cout<<get_points();
+    std::cout << "Name: " << get_name() << std::endl;
+    std::cout << "Points: " << get_points() << std::endl;
     update_points(2);
-    std::cout<<get_points();
+    std::cout << "New Points: " << get_points() << std::endl;
 
 }

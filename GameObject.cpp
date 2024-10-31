@@ -16,10 +16,9 @@ void GameObject::start_game() {
     std::cout << "start_game" << std::endl;
 }
 
-void GameObject::take_turn(Player)
+void GameObject::take_turn(Player& active_player)
 {
     //void take_turn(Player);
-
 
     int turn = 0;
     std::cout << "Press Enter to start turn";
