@@ -1,5 +1,5 @@
-#ifndef PLAYER
-#define PLAYER
+#ifndef PLAYER_H
+#define PLAYER_H
 
 class Player
 {
@@ -17,6 +17,5 @@ Player::Player(/* args */)
 Player::~Player()
 {
 }
-
 
 #endif
