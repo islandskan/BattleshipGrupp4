@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "GameObject.h"
+#include "utils/utils.h"
 #include <iostream>
 #include "utils/utils.cpp"
 
@@ -18,10 +19,9 @@ void GameObject::start_game() {
     std::cout << "start_game" << std::endl;
 }
 
-void GameObject::take_turn(Player)
+void GameObject::take_turn(Player& active_player)
 {
     //void take_turn(Player);
-
 
     int turn = 0;
     std::cout << "Press Enter to start turn";
@@ -31,17 +31,32 @@ void GameObject::take_turn(Player)
     while(turn)
     {
         for( Player active_player : players ) {
+            bool is_hit;
+            int score_value = 0;
+            std::pair <int, int> attackcoordinate;
             std::string buf= "";
             std::cin >> buf;
+            attackcoordinate = validateCoordinate(buf);//from included validate
+           //check if coordinate is valid
+        // if valid, continue
+        // else further checking
+        for(Player player: players)
+        {
+            if (&player != &active_player){
+                score_value = player.get_attacked(attackcoordinate);
+                if ( score_value >= 0 )
+                    is_hit = true;
+                } else {
+                    is_hit = false;
+                    score_value = 0;
+            }
 
-            std::pair<int, int> attackcoordinate = validateCoordinate(buf);//from included validate
-            // Validate coordinates, -1, -1 is invalid
-            // Continue if valid, otherwise re-prompt
-    for(Player player: players)
-    {
-        // player.mark(active_player); // Temporarily disabled to get an executable, player is missing this method
-    }
         }
+
+        active_player.update_points(score_value);
+        active_player.mark_attack(attackcoordinate, is_hit);
+
+    }
 
 
         /*
