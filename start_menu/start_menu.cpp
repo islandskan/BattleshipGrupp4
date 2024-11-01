@@ -3,6 +3,7 @@
 #include <cstdlib> // exit
 #include <ios> // streamsize
 #include <limits> // numeric_limits
+#include "../GameObject.cpp"
 
 // int main() {
 //     std::cout << "Running start_menu.cpp" << std::endl;
@@ -36,6 +37,8 @@ void start_menu() {
             case 1: {
                 std::cout << "Starting Game...";
                 // TODO: Start the game, add this once we have merged all functions
+
+                GameObject gameObject;
 
                 return;
             };

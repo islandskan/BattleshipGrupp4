@@ -2,10 +2,13 @@
 #include "GameObject.h"
 #include "utils/utils.h"
 #include <iostream>
+#include "utils/utils.cpp"
 
 GameObject::GameObject(/* args */)
 {
     // init the player/players?
+
+    std::cout << "Inside GameObject" << std::endl;
 }
 
 GameObject::~GameObject()
@@ -47,6 +50,7 @@ void GameObject::take_turn(Player& active_player)
                     is_hit = false;
                     score_value = 0;
             }
+
         }
 
         active_player.update_points(score_value);

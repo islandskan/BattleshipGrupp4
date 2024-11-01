@@ -8,6 +8,7 @@
 #include "Ship.h"
 #include "GameObject.h"
 
+
 class Player
 {
 private:
@@ -35,6 +36,5 @@ public:
     int get_points();
     // bool get_turn_state();
 };
-
 
 #endif
